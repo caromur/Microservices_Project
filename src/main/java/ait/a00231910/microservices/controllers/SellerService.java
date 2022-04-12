@@ -24,19 +24,9 @@ public class SellerService {
 
 	@Autowired
 	SellerRepository sellerRepo;
-
-//	@RequestMapping("/seller/{id}")
-//	Optional<Seller> getSellerById(@PathVariable("id") Long id) {
-//		Optional<Seller> seller = sellerRepo.findById(id);
-//		if (seller.isPresent()) {
-//			return seller;
-//		} else {
-//			return Optional.empty();
-//		}
-//	}
 	
-	@RequestMapping("/seller/{id}")
-	ResponseEntity getSellerByIdV2(@PathVariable("id") Long id) {
+	@GetMapping("/seller/{id}")
+	ResponseEntity getSellerById(@PathVariable("id") Long id) {
 		Optional<Seller> seller = sellerRepo.findById(id);
 		if (seller.isPresent()) {
 			return ResponseEntity.status(HttpStatus.OK).body(seller);
@@ -81,7 +71,7 @@ public class SellerService {
 	}
 
 	@DeleteMapping("/seller/{id}")
-	ResponseEntity deleteSellerById(@PathVariable("id") Long id) {
+	ResponseEntity<String> deleteSellerById(@PathVariable("id") Long id) {
 		Optional<Seller> savedSeller = sellerRepo.findById(id);
 		if (savedSeller.isPresent()) {
 			sellerRepo.delete(savedSeller.get());
